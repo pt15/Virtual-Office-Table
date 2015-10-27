@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <title>Virtual Workspace</title>
+    
+    <link type="text/css" rel="stylesheet" href="{{=URL('static','css/bootstrap.css')}}"/>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet"  href="{{=URL('static','css/style.css')}}"/>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.css"/>
+<meta charset="UTF-8">
+
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<style type="text/css">
+h2{
+    margin: 0;     
+    color: #666;
+    padding-top: 90px;
+    font-size: 52px;
+    font-family: "trebuchet ms", sans-serif;    
+}
+.item{
+    background: #333;    
+    text-align: center;
+    height: 200px !important;
+}
+.carousel{
+    margin-top: 20px;
+}
+.bs-example{
+	margin: 20px;
+}
+</style>
+</head>
+
+<body>
+
+
+   <!-- Fixes Navigation Bar with drop down menu
+    ======================================================-->
+    
+    <div class="navbar navbar-default navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="buttton" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand">CyberPanda</a>
+            </div>
+            
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="notes.html">Sticky notes</a></li>
+                    <li><a href="">Project timeline</a></li>
+                    <li><a href="gotopage.html">Schedular</a></li>
+                    <li><a href="googledrive.html">Google drive</a></li>
+                    <li><a href="email.html">E-mail</a></li>
+                   
+                    
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+    
+   
+    <!-- Grid
+    ==========================-->
+    
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-md-4">
+                <h2>Sticky notes</h2>
+                <p><a href="notes.html">Sticky notes widget</a></p>
+            </div>
+            
+            <div class="col-md-4">
+                <h2>Email</h2>
+                <p><a href="email.html">E-mail widget</a></p>
+            </div>
+            
+            <div class="col-md-5">
+                <p><a href="googledrive.html"><img src="{{=URL('static','images/img3.jpeg')}}"></a> </p>
+            </div>
+            
+            
+        </div>
+        
+        
+            
+            <div class="col-md-5">
+                <h1>schedular</h1>
+                <p>
+                  <meta charset="utf-8">
+<title>datepicker demo</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<div id="datepicker" onchange="show()"><input id='alternate'></input></div>
+Enter:<input id='insert' ></input>
+<button id='show' onclick='insert()' >memo</button>
+<div id='target'></div>
+<button id='gototpage' onclick='gototpage()'>gotopage</button>
+<script>
+
+//window.onload = setInterval(show,1000);
+
+$( "#datepicker" ).datepicker({ 
+changeMonth: true,
+changeYear: true, 
+
+showWeek: true,firstDay: 1, 
+showButtonPanel: true, 
+
+altField: "#alternate",altFormat: "DD, d MM, yy"});
+$( "#datepicker" ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
+	
+
+/*
+function gotopage(){
+	ajax('{{=URL('gotopage')}}',[],'target');
+
+}
+*/
+
+function insert(){
+
+	var msg = document.getElementById('insert').value;
+	var dated = document.getElementById('datepicker').value;
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			document.getElementById("target").innerHTML=xmlhttp.responseText;
+			show();
+		}
+	}
+	xmlhttp.open("GET","insert?dated="+dated+"&msg="+msg,true);
+	xmlhttp.send();
+}
+
+function gotopage(date_selected)
+{
+/*	var xmlhttp;
+	if (window.XMLHttpRequest)
+	{
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			document.getElementById("target").innerHTML=xmlhttp.responseText;
+		}
+	}
+	xmlhttp.open("GET","gotopage?select="+date_selected,true);
+	xmlhttp.send();
+*/
+	var dated = document.getElementById('datepicker').value;
+	window.location.href= 'gotopage?select='+dated
+	
+
+}
+
+
+function show(){
+	dated = document.getElementById('datepicker').value;
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	{
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			var text =xmlhttp.responseText;
+			document.getElementById("target").innerHTML=text;			}
+	}
+	xmlhttp.open("GET","show?dated="+dated,true);
+	xmlhttp.send();
+}
+</script>
+                </p>
+            </div>
+            
+        </div>
+        
+    </div>
+    
+    <!-- Carousel -->
+    <div class="bs-example">
+    <div id="myCarousel" class="carousel slide" data-interval="2000" data-ride="carousel">
+    	<!-- Carousel indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+           
+        </ol>   
+       <!-- Carousel items -->
+        <div class="carousel-inner">
+            <div class="active item">
+            <img src="{{=URL('static','images/img1.jpeg')}}">
+                <h2>Sticky Notes</h2>
+                <div class="carousel-caption">
+                  <h3>Sticky Notes</h3>
+                  <p>Functionality where the user can easily and quickly store color coded notes for quick reference. </p>
+                </div>
+            </div>
+            <div class="item">
+             <img src="{{=URL('static','images/img2.jpeg')}}">
+                <h2>emails</h2>
+                <div class="carousel-caption">
+                  <h3>Email</h3>
+                  <p>Fetching & Dislpaying E-Mails from Multiple Accounts of A User. </p>
+                </div>
+            </div>
+            <div class="item">
+ <img src="{{=URL('static','images/img3.jpeg')}}">
+                <h2>Slide 3</h2>
+                <div class="carousel-caption">
+                  <h3>Google drive</h3>
+                  <p>Displaying Files and Folders of the User present in his Google Drive Account. </p>
+                </div>
+            </div>
+           <div class="item">
+ <img src="{{=URL('static','images/img4.jpeg')}}">
+                <h2>Slide 3</h2>
+                <div class="carousel-caption">
+                  <h3>Scheduler</h3>
+                  <p>User to store their Holidays, Occasions, Meetings, Deadlines, Events etc in the calendar. </p>
+                </div>
+            </div>
+           
+        </div>
+        <!-- Carousel nav -->
+        <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="carousel-control right" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+</div>						
+
+
+	<script src="js/affix.js"></script>	
+	<script src="js/alert.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/button.js"></script>
+	<script src="js/carousel.js"></script>
+	<script src="js/collapse.js"></script>
+	<script src="js/dropdown.js"></script>
+	<script src="js/modal.js"></script>
+	<script src="js/popover.js"></script>
+	<script src="js/scrollspy.js"></script>
+	<script src="js/tab.js"></script>
+	<script src="js/tooltip.js"></script>
+	<script src="js/transition.js"></script>
+    
+    
+    <!-- Font Awesome Icons
+    ============================-->
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="well">
+                    
+                    <a href="http://www.android.com"> <i class="largeIcon icon-android"></i> </a>
+                    <a href="http://www.linkedin.com"> <i class="largeIcon icon-linkedin"></i></a>
+                    <a href="http://www.twitter.com"> <i class="largeIcon icon-twitter"></i></a>
+                    <a href="http://www.youtube.com"> <i class="largeIcon icon-youtube"></i></a>
+                    <a href="http://skype.com"> <i class="largeIcon icon-skype"></i></a>
+                    <a href="http://google.com"> <i class="largeIcon icon-google-plus"></i></a>
+                    <a href="http://apple.com"> <i class="largeIcon icon-apple"></i></a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- Footer and Modal
+    ==========================-->
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                
+                <hr/>
+                <p>Copyright of SWATZ &copy; Virtual Desk.
+                    <a data-toggle="modal" href="#myModal">CyberPanda</a>
+                </p>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabinex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2>Terms and Conditions</h2>
+                            </div>
+                            <div class="modal-body">
+                                <p>The text will go here.....</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+    
+    <script src="{{=URL('static','js/jquery.js')}}"></script> 
+    <script src="{{=URL('static','js/bootsrap.js')}}"></script> 
+</body>
+</html>    

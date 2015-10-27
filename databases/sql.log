@@ -1,0 +1,159 @@
+timestamp: 2014-03-29T19:15:37.794849
+CREATE TABLE auth_user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name CHAR(128),
+    last_name CHAR(128),
+    email CHAR(512),
+    password CHAR(512),
+    registration_key CHAR(512),
+    reset_password_key CHAR(512),
+    registration_id CHAR(512)
+);
+success!
+timestamp: 2014-03-29T19:15:37.898350
+CREATE TABLE auth_group(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    role CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2014-03-29T19:15:37.998779
+CREATE TABLE auth_membership(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE
+);
+success!
+timestamp: 2014-03-29T19:15:38.110359
+CREATE TABLE auth_permission(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE,
+    name CHAR(512),
+    table_name CHAR(512),
+    record_id INTEGER
+);
+success!
+timestamp: 2014-03-29T19:15:38.221938
+CREATE TABLE auth_event(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    time_stamp TIMESTAMP,
+    client_ip CHAR(512),
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    origin CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2014-03-29T19:15:38.333417
+CREATE TABLE auth_cas(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    created_on TIMESTAMP,
+    service CHAR(512),
+    ticket CHAR(512),
+    renew CHAR(1)
+);
+success!
+timestamp: 2014-03-29T19:15:38.444707
+CREATE TABLE Users(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name CHAR(512),
+    Username CHAR(512),
+    Password CHAR(512),
+    Organisation CHAR(512)
+);
+success!
+timestamp: 2014-03-29T19:15:38.555921
+CREATE TABLE Projects(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Username CHAR(512),
+    Project1 CHAR(512),
+    Project2 CHAR(512),
+    Project3 CHAR(512)
+);
+success!
+timestamp: 2014-03-29T19:15:38.689899
+CREATE TABLE EmailIds(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Username CHAR(512),
+    EID1 CHAR(512),
+    Pass1 CHAR(512),
+    EID2 CHAR(512),
+    Pass2 CHAR(512),
+    EID3 CHAR(512),
+    Pass3 CHAR(512),
+    EID4 CHAR(512),
+    Pass4 CHAR(512),
+    EID5 CHAR(512),
+    Pass5 CHAR(512)
+);
+success!
+DELETE FROM Users;
+DELETE FROM sqlite_sequence WHERE name='Users';
+success!
+DELETE FROM Projects;
+DELETE FROM sqlite_sequence WHERE name='Projects';
+success!
+DELETE FROM EmailIds;
+DELETE FROM sqlite_sequence WHERE name='EmailIds';
+success!
+DELETE FROM Users;
+DELETE FROM sqlite_sequence WHERE name='Users';
+success!
+DELETE FROM Projects;
+DELETE FROM sqlite_sequence WHERE name='Projects';
+success!
+DELETE FROM EmailIds;
+DELETE FROM sqlite_sequence WHERE name='EmailIds';
+success!
+DELETE FROM Users;
+DELETE FROM sqlite_sequence WHERE name='Users';
+success!
+DELETE FROM Projects;
+DELETE FROM sqlite_sequence WHERE name='Projects';
+success!
+DELETE FROM EmailIds;
+DELETE FROM sqlite_sequence WHERE name='EmailIds';
+success!
+DELETE FROM Users;
+DELETE FROM sqlite_sequence WHERE name='Users';
+success!
+DELETE FROM Projects;
+DELETE FROM sqlite_sequence WHERE name='Projects';
+success!
+DELETE FROM EmailIds;
+DELETE FROM sqlite_sequence WHERE name='EmailIds';
+success!
+timestamp: 2014-04-15T02:56:14.661587
+CREATE TABLE memo(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    uname CHAR(512),
+    dated DATE,
+    timed TIME,
+    msg TEXT
+);
+success!
+success!
+success!
+success!
+success!
+DELETE FROM Users;
+DELETE FROM sqlite_sequence WHERE name='Users';
+success!
+DELETE FROM Projects;
+DELETE FROM sqlite_sequence WHERE name='Projects';
+success!
+DELETE FROM EmailIds;
+DELETE FROM sqlite_sequence WHERE name='EmailIds';
+success!
+DELETE FROM Users;
+DELETE FROM sqlite_sequence WHERE name='Users';
+success!
+DELETE FROM Projects;
+DELETE FROM sqlite_sequence WHERE name='Projects';
+success!
+DELETE FROM EmailIds;
+DELETE FROM sqlite_sequence WHERE name='EmailIds';
+success!
+DELETE FROM memo;
+DELETE FROM sqlite_sequence WHERE name='memo';
+success!

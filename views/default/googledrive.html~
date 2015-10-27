@@ -1,0 +1,348 @@
+
+<html>
+  <head>
+   <img src="{{=URL('static','images/img2.jpeg')}}">
+  
+   <title>Virtual Workspace</title>
+    
+    <link type="text/css" rel="stylesheet" href="{{=URL('static','css/bootstrap.css')}}"/>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet"  href="{{=URL('static','css/style.css')}}"/>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.css"/>
+<meta charset="UTF-8">
+<title>Example of Twitter Bootstrap 3 Carousel</title>
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<style type="text/css">
+h2{
+    margin: 0;     
+    color: #666;
+    padding-top: 90px;
+    font-size: 52px;
+    font-family: "trebuchet ms", sans-serif;    
+}
+.item{
+    background: #333;    
+    text-align: center;
+    height: 200px !important;
+}
+.carousel{
+    margin-top: 20px;
+}
+.bs-example{
+	margin: 20px;
+}
+</style>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <script type="text/javascript">
+      var CLIENT_ID = '1034888935416.apps.googleusercontent.com';
+      var SCOPES = 'https://www.googleapis.com/auth/drive';
+
+      /**
+       * Called when the client library is loaded to start the auth flow.
+       */
+      function handleClientLoad() {
+        window.setTimeout(checkAuth, 1);
+      }
+
+      /**
+       * Check if the current user has authorized the application.
+       */
+      function checkAuth() {
+        gapi.auth.authorize(
+            {'client_id': CLIENT_ID, 'scope': SCOPES, 'immediate': true},
+            handleAuthResult);
+      }
+
+      /**
+       * Called when authorization server replies.
+       *
+       * @param {Object} authResult Authorization result.
+       */
+      function handleAuthResult(authResult) {
+        var authButton = document.getElementById('authorizeButton');
+        var filePicker = document.getElementById('filePicker');
+        var refresh = document.getElementById('refresh');
+        var filestable = document.getElementById('filestable');
+        authButton.style.display = 'none';
+        filePicker.style.display = 'none';
+        if (authResult && !authResult.error) {
+          // Access token has been successfully retrieved, requests can be sent to the API.
+          filePicker.style.display = 'block';
+          refresh.style.display = 'block';
+          filestable.style.display = 'block';
+          getfiles();
+          filePicker.onchange = uploadFile;
+          
+          
+        } else {
+          // No access token could be retrieved, show the button to start the authorization flow.
+          authButton.style.display = 'block';
+          authButton.onclick = function() {
+              gapi.auth.authorize(
+                  {'client_id': CLIENT_ID, 'scope': SCOPES, 'immediate': false},
+                  handleAuthResult);
+          };
+        }
+      }
+
+      /**
+       * Start the file upload.
+       *
+       * @param {Object} evt Arguments from the file selector.
+       */
+      function uploadFile(evt) {
+        gapi.client.load('drive', 'v2', function() {
+          var file = evt.target.files[0];
+          insertFile(file);
+          var uploaded= document.getElementById('uploaded');
+          uploaded.style.display= 'block'; 
+          
+        });
+      }
+      
+      function getfiles() {  
+    gapi.client.load('drive', 'v2',retrieveAllFiles);
+    }
+
+      /**
+       * Insert new file.
+       *
+       * @param {File} fileData File object to read data from.
+       * @param {Function} callback Function to call when the request is complete.
+       */
+      function insertFile(fileData, callback) {
+        const boundary = '-------314159265358979323846';
+        const delimiter = "\r\n--" + boundary + "\r\n";
+        const close_delim = "\r\n--" + boundary + "--";
+
+        var reader = new FileReader();
+        reader.readAsBinaryString(fileData);
+        reader.onload = function(e) {
+          var contentType = fileData.type || 'application/octet-stream';
+          var metadata = {
+            'title': fileData.name,
+            'mimeType': contentType
+          };
+
+          var base64Data = btoa(reader.result);
+          var multipartRequestBody =
+              delimiter +
+              'Content-Type: application/json\r\n\r\n' +
+              JSON.stringify(metadata) +
+              delimiter +
+              'Content-Type: ' + contentType + '\r\n' +
+              'Content-Transfer-Encoding: base64\r\n' +
+              '\r\n' +
+              base64Data +
+              close_delim;
+
+          var request = gapi.client.request({
+              'path': '/upload/drive/v2/files',
+              'method': 'POST',
+              'params': {'uploadType': 'multipart'},
+              'headers': {
+                'Content-Type': 'multipart/mixed; boundary="' + boundary + '"'
+              },
+              'body': multipartRequestBody});
+          if (!callback) {
+            callback = function(file) {
+              
+            };
+          }
+          request.execute(callback);
+        }
+      }
+      
+/*
+ *
+ * Retrieve a list of File resources.
+ *
+ * @param {Function} callback Function to call when the request is complete.
+ */
+function retrieveAllFiles(callback) {
+   if (!callback) {
+            callback = function(result) {
+        
+            };
+          }  
+  var retrievePageOfFiles = function(request, result) {
+    request.execute(function(resp) {
+      result = result.concat(resp.items);
+      var nextPageToken = resp.nextPageToken;
+      if (nextPageToken) {
+      	
+        request = gapi.client.drive.files.list({
+          'pageToken': nextPageToken
+        });
+        retrievePageOfFiles(request, result);
+        
+      }
+      
+      else {
+        callback(result);
+        listfiles(result);
+      }
+    });
+  }
+  var initialRequest = gapi.client.drive.files.list();
+  retrievePageOfFiles(initialRequest, []);
+}
+/**
+* Button to refresh the page so that the file list is updated.
+*/
+function refresh()
+{
+	location.reload();
+}
+
+/**
+* Function to display list of the all files and folders present on the User's drive.
+* @param {result} : Object Array containing file metadata instances
+*
+*/
+
+function listfiles(result)
+{
+	console.log(result);
+	var length = result.length;
+	var index = 1;
+	for(i=0;i<length;++i)
+	{
+		if(result[i]['parents'])
+		{
+		var pathis = "Root";
+		var path = getpath(result,i,pathis);
+		var table = document.getElementById("filestable");
+		var row = table.insertRow(index);
+		index++;
+		var cell1 = row.insertCell(0);
+		var cell2 = row.insertCell(1);
+		var cell3 = row.insertCell(2);
+		var cell4 = row.insertCell(3);
+		var cell5 = row.insertCell(4);
+		var cell6 = row.insertCell(5);
+		var imglink = result[i]['iconLink'];
+		cell1.innerHTML = "<img src="+ result[i]['iconLink'] +">";
+		cell2.innerHTML = result[i]['title'];
+		cell3.innerHTML = result[i]['createdDate'];
+		cell4.innerHTML = result[i]['modifiedDate'];
+		cell5.innerHTML = path;
+		if(result[i]['downloadUrl'])
+		{	
+			cell6.innerHTML = "<input type='button' id='" + result[i]['downloadUrl'] + "' onclick='downloadfiles(this.id)' value='Download'>";
+		}
+		}
+	}
+}
+
+/**
+ *Initiate file download.
+ * @param {result} the filedownloadUrl for the Drive file instance
+ */
+function downloadfiles(result) {
+		gapi.client.load('drive', 'v2', function() {
+                 downloadFile(result);
+        });
+      }
+/**
+ * Download a file's content.
+ *
+ * @param {File} file.dowloadUrl of  Drive File instance.
+ * @param {Function} callback Function to call when the request is complete.
+ */
+function downloadFile(file, callback) {
+  if (!callback) {
+            callback = function(file) { uriContent = "data:application/octet-stream," + encodeURIComponent(file);
+            window.open(uriContent);
+            };
+          }  
+  if (file) {
+  
+    var accessToken = gapi.auth.getToken().access_token;
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', file);
+    xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+    xhr.onload = function() {
+      callback(xhr.responseText);
+    };
+    xhr.onerror = function() {
+      callback(null);
+    };
+    xhr.send();
+  } else {
+    callback(null);
+  }
+}
+/*  Find out the path of the file in the drive of the user */
+function getpath(result,i,pathis)
+{
+	if (result[i]['parents'][0]['isRoot'] == true)
+	{
+		return pathis;
+	}
+	for(j=0;j<result.length;++j)
+	{
+		if(result[j]['id'] == result[i]['parents'][0]['id'])
+		{
+			pathis = pathis + "/" + result[j]['title'];
+			
+			break;
+		}
+	}
+	pathis = getpath(result,j,pathis);
+	return pathis;
+}
+    </script>
+    <script type="text/javascript" src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+</head>
+  <body>
+  
+   <!-- Fixes Navigation Bar with drop down menu
+    ======================================================-->
+    
+    <div class="navbar navbar-default navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="buttton" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand">CyberPanda</a>
+            </div>
+            
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="yahan link dalega">Sticky notes</a></li>
+                    <li><a href="yahan bhii link">Project timeline</a></li>
+                    <li><a href="feature.html">Schedular</a></li>
+                    <li><a href="yahan bhi link dalega">Google drive</a></li>
+                    <li><a href="yahan bhi link dalega">E-mail</a></li>
+                   
+                    
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+    
+   
+    <input type="file" id="filePicker" style="display: none" /><div id="uploaded" style="display:none" >File Uploaded</div>
+    <br/>
+    <input type="button" id="refresh" onclick="refresh()" style="display:none" value="Refresh"/>
+    <br/>
+    <table class="table table-striped"id="filestable" style="display:none">
+    <th>Icon Thumbnail</th>
+    <th>File Name</th>
+    <th>Date Created</th>
+    <th>Last Modified Date</th>
+    <th>Path</th>
+    <th>Download</th>
+    </table>
+        <input type="button" id="authorizeButton" style="display:none" value="Authorize" />
+  </body>
+</html>
+

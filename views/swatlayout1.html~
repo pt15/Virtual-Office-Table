@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Virtual Workspace</title>
+    
+    <link type="text/css" rel="stylesheet" href="{{=URL('static','css/bootstrap.css')}}"/>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet"  href="{{=URL('static','css/style.css')}}"/>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.css"/>
+<meta charset="UTF-8">
+<title>Example of Twitter Bootstrap 3 Carousel</title>
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<style type="text/css">
+h2{
+    margin: 0;     
+    color: #666;
+    padding-top: 90px;
+    font-size: 52px;
+    font-family: "trebuchet ms", sans-serif;    
+}
+.item{
+    background: #333;    
+    text-align: center;
+    height: 300px !important;
+}
+.carousel{
+    margin-top: 20px;
+}
+.bs-example{
+	margin: 20px;
+}
+</style>
+</head>
+
+<body>
+    
+<ul class="nav nav-tabs">
+	<li> <a href=https://www.facebook.com/> fb </a></li>
+		<li class="active"> <a href=http://yahoo.com/> yahhhooo </a></li>
+			<li> <a href=http://mugglenet.com/> Hp </a></li>
+				<li> <a href=http://google.com/> google </a></li>
+				</ul>
+				
+    <!-- Fixes Navigation Bar with drop down menu
+    ======================================================-->
+    
+    <div class="navbar navbar-default navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="buttton" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand">CyberPanda</a>
+            </div>
+            
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="yahan link dalega">Sticky notes</a></li>
+                    <li><a href="yahan bhii link">Project timeline</a></li>
+                    <li><a href="feature.html">Schedular</a></li>
+                    <li><a href="yahan bhi link dalega">Google drive</a></li>
+                    <li><a href="yahan bhi link dalega">E-mail</a></li>
+                   
+                    
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+<form class="well span12" name="login" action="login_2.html" method="post">
+<label>Username</label> 
+<input type="text" class="span3" placeholder="Type the Username here" name="Username"/><br/>
+
+<label> Password </label>
+ <input type="password" class="span3" placeholder="Type password here" name="Password"/><br/>
+ <button class="btn btn-primary">Submit</button>
+<br>
+Don't have an account?
+<br/>
+<a href="signup.html">Sign up here!</a>
+</form>
+
+    
+    
+   
+  
+   
+    
+    <!-- Grid
+    ==========================-->
+    
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-md-4">
+                <h2>Sticky notes</h2>
+                <p>Sticky notes widget </p>
+            </div>
+            
+            <div class="col-md-4">
+                <h2>Email</h2>
+                <p>E-mail widget </p>
+            </div>
+            
+            <div class="col-md-4">
+                <h2>Google drive thingy</h2>
+                <p>its goddamn widget </p>
+            </div>
+            
+            
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <h1>pROJECT TIMELINE</h1>
+                <p>
+                    PROJECT TIMELINE KE DETAILS AUR WIDGET. 
+                </p>
+            </div>
+            
+            <div class="col-md-6">
+                <h1>schedular</h1>
+                <p>
+                   scedular ka widget
+                </p>
+            </div>
+            
+        </div>
+        
+    </div>
+    
+    <!-- Carousel -->
+    <div class="bs-example">
+    <div id="myCarousel" class="carousel slide" data-interval="3000" data-ride="carousel">
+    	<!-- Carousel indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+            <li data-target="#myCarousel" data-slide-to="4"></li>
+        </ol>   
+       <!-- Carousel items -->
+        <div class="carousel-inner">
+            <div class="active item">
+            <img src="{{=URL('static','images/img1.jpeg')}}">
+                <h2>Sticky Notes</h2>
+                <div class="carousel-caption">
+                  <h3>Sticky Notes</h3>
+                  <p>details abt sticky notes</p>
+                </div>
+            </div>
+            <div class="item">
+             <img src="{{=URL('static','images/img2.jpeg')}}">
+                <h2>emails</h2>
+                <div class="carousel-caption">
+                  <h3>Email</h3>
+                  <p>details abt emails</p>
+                </div>
+            </div>
+            <div class="item">
+ <img src="{{=URL('static','images/img3.jpeg')}}">
+                <h2>Slide 3</h2>
+                <div class="carousel-caption">
+                  <h3>google drive</h3>
+                  <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                </div>
+            </div>
+           <div class="item">
+ <img src="{{=URL('static','images/img4.jpeg')}}">
+                <h2>Slide 3</h2>
+                <div class="carousel-caption">
+                  <h3>google drive</h3>
+                  <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                </div>
+            </div>
+           <div class="item">
+ <img src="{{=URL('static','images/img5.jpeg')}}">
+                <h2>Slide 3</h2>
+                <div class="carousel-caption">
+                  <h3>google drive</h3>
+                  <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Carousel nav -->
+        <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="carousel-control right" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+</div>						
+
+
+	<script src="js/affix.js"></script>	
+	<script src="js/alert.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/button.js"></script>
+	<script src="js/carousel.js"></script>
+	<script src="js/collapse.js"></script>
+	<script src="js/dropdown.js"></script>
+	<script src="js/modal.js"></script>
+	<script src="js/popover.js"></script>
+	<script src="js/scrollspy.js"></script>
+	<script src="js/tab.js"></script>
+	<script src="js/tooltip.js"></script>
+	<script src="js/transition.js"></script>
+    
+    
+    <!-- Font Awesome Icons
+    ============================-->
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="well">
+                    
+                    <a href="http://www.android.com"> <i class="largeIcon icon-android"></i> </a>
+                    <a href="http://www.linkedin.com"> <i class="largeIcon icon-linkedin"></i></a>
+                    <a href="http://www.twitter.com"> <i class="largeIcon icon-twitter"></i></a>
+                    <a href="http://www.youtube.com"> <i class="largeIcon icon-youtube"></i></a>
+                    <a href="http://skype.com"> <i class="largeIcon icon-skype"></i></a>
+                    <a href="http://google.com"> <i class="largeIcon icon-google-plus"></i></a>
+                    <a href="http://apple.com"> <i class="largeIcon icon-apple"></i></a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- Footer and Modal
+    ==========================-->
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                
+                <hr/>
+                <p>Copyright of SWATZ &copy; Virtual Desk.
+                    <a data-toggle="modal" href="#myModal">CyberPanda</a>
+                </p>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabinex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2>Terms and Conditions</h2>
+                            </div>
+                            <div class="modal-body">
+                                <p>The text will go here.....</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+    
+    <script src="{{=URL('static','js/jquery.js')}}"></script> 
+    <script src="{{=URL('static','js/bootsrap.js')}}"></script> 
+</body>
+</html>

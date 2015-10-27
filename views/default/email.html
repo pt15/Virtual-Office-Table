@@ -1,0 +1,156 @@
+
+<html>
+<head>
+    <title>Virtual Workspace</title>
+    
+    <link type="text/css" rel="stylesheet" href="{{=URL('static','css/bootstrap.css')}}"/>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet"  href="{{=URL('static','css/style.css')}}"/>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.css"/>
+<meta charset="UTF-8">
+<title>Twitter Bootstrap 3 Carousel</title>
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<style type="text/css">
+h2{
+    margin: 0;     
+    color: #666;
+    padding-top: 90px;
+    font-size: 52px;
+    font-family: "trebuchet ms", sans-serif;    
+}
+.item{
+    background: #333;    
+    text-align: center;
+    height: 200px !important;
+}
+.carousel{
+    margin-top: 20px;
+}
+.bs-example{
+	margin: 20px;
+}
+.boxed{
+	background-color: #C0C0C0;
+	box-shadow: 10px 10px 5px #888888;
+	margin: 4px;
+	border: 2px solid black ;	
+}
+</style>
+</head>
+
+<div  id=email>
+</div>	
+<script type="text/javascript">
+var ctr = {{=ctr}};
+var emailids = {{=XML(emailids)}};
+var unreads = {{=XML(unreads)}};
+var unread_messages = {{=XML(unread_messages)}};
+var content_array = new Array([]);
+for(j=0;j<ctr;++j)
+{
+	var k = j+1;
+	var div = document.createElement('div');
+	var id = "email" + k;
+	div.style.color = "green"
+	div.setAttribute('class','boxed');
+	div.id = id;
+	document.getElementById("email").appendChild(div);
+	var i,size;
+	content_array.push(new Array());
+	if (unreads[j] <= 10)
+		size = unreads[j];
+	else
+		size = 10;
+	if (size == 0)
+		document.getElementById(id).innerHTML ="<br><br><br>" + emailids[j] + "<br><br><br>No unread messages";
+	else
+	{
+		document.getElementById(id).innerHTML = "<br><br><br>" +emailids[j] + "<br><br>" + unreads[j] + "<br>";
+		var unread_msgs = unread_messages[j]; 
+		for(i=0;i<size;++i)
+		{
+			var msg = document.createElement('div');
+			if(unread_msgs[i])
+			{
+				var x = unread_msgs[i].split("Content: ");
+				content_array[j].push(x[1])
+				if(i == size-1)
+					msg.innerHTML = x[0] + "<span id='" + k + "content"+i+"'></span><br><br><button id='" + k +"_button_"+i+"' onClick='getcontent(this.id)'>Content</button>";
+				else
+					msg.innerHTML = x[0] + "<span id='" + k + "content"+i+"'></span><br><br><button id='" + k +"_button_"+i+"' onClick='getcontent(this.id)'>Content</button><br><hr>";
+		//	div.innerHTML = x[0] + "<br><br> <span style='display:None;' id='content" + i + "'> Content: " + x[1] +"</span><br><button onclick='var me = document.getElementById(\'content\'"+i+");if(me.style.display==\'none\'){me.style.display=\'block\';}else{ me.style.display=\'none\';}'>Content</button>";
+				msg.id = "Email" + k + "_" + (i+1);
+				document.getElementById(id).appendChild(msg);
+			}
+		}
+		//alert(content_array[j]);
+	}
+}
+//alert(content_array);
+function getcontent(button_id)
+{
+	msgno=button_id.split('_')[2];
+	emailno = button_id.split('_')[0];
+	content_id=emailno+"content"+msgno;
+	if(document.getElementById(content_id).innerHTML=="")
+	{
+		var str = content_array[emailno-1][msgno];
+		var pattern = /<html/i;
+		var result = str.match(pattern);
+		if (!result)
+		//if(content_array[emailno-1][msgno]
+			document.getElementById(content_id).innerHTML=content_array[emailno-1][msgno];
+		else
+		{
+			x = str.split("<html");
+			y = x[1].split("</html>");
+			var z = y[0].replace(/\"/gi,"\'");
+			htmlcontent = "<html" + z + "</html>";
+			//alert(htmlcontent);
+			var content = x[0] + "<iframe srcdoc=" + htmlcontent + "></iframe>" + y[1];
+			document.getElementById(content_id).innerHTML = content;
+		}
+	}
+	else	
+	{
+		document.getElementById(content_id).innerHTML="";
+	}
+}
+</script>
+
+<body>
+
+
+
+    
+   <div class="navbar navbar-default navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="buttton" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand">CyberPanda</a>
+            </div>
+            
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="yahan link dalega">Sticky notes</a></li>
+                    <li><a href="yahan bhii link">Project timeline</a></li>
+                    <li><a href="feature.html">Schedular</a></li>
+                    <li><a href="yahan bhi link dalega">Google drive</a></li>
+                    <li><a href="yahan bhi link dalega">E-mail</a></li>
+                   
+                    
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+    
+   </body>
+ </html>   

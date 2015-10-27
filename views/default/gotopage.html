@@ -1,0 +1,225 @@
+!DOCTYPE html>
+
+<html>
+<head>
+    <title>Virtual Workspace</title>
+    
+    <link type="text/css" rel="stylesheet" href="{{=URL('static','css/bootstrap.css')}}"/>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet"  href="{{=URL('static','css/style.css')}}"/>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.css"/>
+<meta charset="UTF-8">
+<title>Twitter Bootstrap 3 Carousel</title>
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<style type="text/css">
+h2{
+    margin: 0;     
+    color: #666;
+    padding-top: 90px;
+    font-size: 52px;
+    font-family: "trebuchet ms", sans-serif;    
+}
+.item{
+    background: #333;    
+    text-align: center;
+    height: 200px !important;
+}
+.carousel{
+    margin-top: 20px;
+}
+.bs-example{
+	margin: 20px;
+}
+</style>
+</head>
+
+<body>
+
+
+ <!--Navigation Bar with drop down menu
+    ======================================================-->
+    
+   <div class="navbar navbar-default navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="buttton" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand">CyberPanda</a>
+            </div>
+            
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="yahan link dalega">Sticky notes</a></li>
+                    <li><a href="yahan bhii link">Project timeline</a></li>
+                    <li><a href="feature.html">Schedular</a></li>
+                    <li><a href="yahan bhi link dalega">Google drive</a></li>
+                    <li><a href="yahan bhi link dalega">E-mail</a></li>
+                   
+                    
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+
+
+<title>datepicker demo</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<div style="margin-top:100px; float:left;width:45%">
+<div id="datepicker" onchange="show()"><input id='alternate'></input></div>
+
+Enter:<input id='insert' ></input>
+
+
+<div id='target'></div>
+
+<button id='show' onclick='insert()' >Add</button>
+<br />
+<br />
+<select id='month_id' >Month :
+<option value="01">Jan</option>
+<option value="02">Feb</option>
+<option value="03">Mar</option>
+<option value="04">Apr</option>
+<option value="05">May</option>
+<option value="06">Jun</option>
+<option value="07">Jul</option>
+<option value="08">Aug</option>
+<option value="09">Sep</option>
+<option value="10">Oct</option>
+<option value="11">Nov</option>
+<option value="12">Dec</option>
+
+</select>
+
+
+Year:<input id='year_id' value='2014'></input>
+
+
+
+<button id='month_show' onclick="month_show()">Month show</button>
+</div>
+<div style="float: right; margin-top:100px; width: 50% " id='showall' ></div>
+
+
+<script>
+
+$( "#datepicker" ).datepicker({ 
+changeMonth: true,
+changeYear: true, 
+
+showWeek: true,firstDay: 1, 
+showButtonPanel: true, 
+
+altField: "#alternate",altFormat: "DD, d MM, yy"});
+$( "#datepicker" ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
+        
+function insert(){
+
+        var msg = document.getElementById('insert').value;
+        var dated = document.getElementById('datepicker').value;
+        var xmlhttp;
+        if (window.XMLHttpRequest)
+        {// code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {// code for IE6, IE5
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function()
+        {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+			show();
+			showall();
+                }
+        }
+        xmlhttp.open("GET","insert?dated="+dated+"&msg="+msg,true);
+        xmlhttp.send();
+
+}
+
+window.onload = showall();
+
+function showall(){
+        var dated = document.getElementById('datepicker').value;
+        var xmlhttp;
+        if (window.XMLHttpRequest)
+        {// code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {// code for IE6, IE5
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function()
+        {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                        document.getElementById("showall").innerHTML=xmlhttp.responseText;
+                }
+        }
+        xmlhttp.open("GET","showall?dated="+dated,true);
+        xmlhttp.send();
+}
+
+function month_show(){
+        var month = document.getElementById('month_id').value;
+	var year = document.getElementById('year_id').value;
+	
+        var xmlhttp;
+        if (window.XMLHttpRequest)
+        {// code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {// code for IE6, IE5
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function()
+        {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                        document.getElementById("showall").innerHTML=xmlhttp.responseText;
+                }
+        }
+        xmlhttp.open("GET","show_month?month="+month+'&selectyear='+year,true);
+        xmlhttp.send();
+}
+
+
+function show(){
+        dated = document.getElementById('datepicker').value;
+        var xmlhttp;
+        if (window.XMLHttpRequest)
+        {
+                xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function()
+        {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                        var text =xmlhttp.responseText;
+                        document.getElementById("target").innerHTML=text;                       }
+        }
+        xmlhttp.open("GET","show?dated="+dated,true);
+        xmlhttp.send();
+}
+
+</script>

@@ -1,0 +1,341 @@
+<html>
+<head>
+<img src="{{=URL('static','images/a1.jpg')}}">
+
+
+    <title>Virtual Workspace</title>
+    
+    <link type="text/css" rel="stylesheet" href="{{=URL('static','css/bootstrap.css')}}"/>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet"  href="{{=URL('static','css/style.css')}}"/>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.css"/>
+<meta charset="UTF-8">
+
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<style type="text/css">
+<style>
+h2{
+    margin: 0;     
+    color: #666;
+    padding-top: 90px;
+    font-size: 52px;
+    font-family: "trebuchet ms", sans-serif;    
+}
+.item{
+    background: #333;    
+    text-align: center;
+    height: 200px !important;
+}
+.carousel{
+    margin-top: 20px;
+}
+.bs-example{
+	margin: 20px;
+}
+#note1
+{
+border-width:5px;
+border-style:inset;
+font-size: 20px;
+color: blue; background-color: lightblue;
+width :260px;
+height: 120px;
+margin-top: 00px;
+}
+
+#note3
+{
+border-width:5px;
+border-style:inset;
+font-size: 20px;
+color: pink; background-color: lightpink;
+width :260px;
+height: 120px;
+margin-top: 20px;
+}
+
+#note5
+{
+border-width:5px;
+border-style:inset;
+font-size: 20px;
+color: green; background-color: lightgreen;
+width :260px;
+height: 120px;
+margin-top: 20px;
+}
+
+#note2
+{
+border-width:5px;
+border-style:inset;
+font-size: 20px;
+color: black; background-color: lightgrey;
+float : right;
+margin-right: 0px;
+width :260px;
+height: 120px;
+padding-top: 00px;
+}
+
+#note4
+{
+border-width:5px;
+border-style:inset;
+font-size: 20px;
+color: orange; background-color: yellow;
+float : right;
+margin-right: 0px;
+width :260px;
+height: 120px;
+margin-top: 20px;
+}
+
+#note6
+{
+border-width:5px;
+border-style:inset;
+font-size: 20px;
+float : right;
+margin-right: 0px; 
+width :260px;
+height: 120px;
+margin-top: 40px;
+
+}
+
+
+
+#edit
+{
+
+font-size: 20px;
+position: absolute;
+padding-top : 25px;
+margin-right: 300px;
+margin-left: 500px;
+}
+</style>
+
+
+<script>
+
+var no =1;
+window.onload =function(){
+	 display(1);
+	 display(2);
+	 display(3);
+	 display(4);
+	 display(5);
+	 display(6);
+	enlarge(document.getElementById('note1'));
+}
+
+
+
+function enlarge(self){
+no = self.id.slice(4,5)
+
+	for (var i = 1 ; i <= 3 ; i++)
+	{
+		var X = document.getElementById("note"+i);
+		X.style.height = "120px";
+		X.style.width = "260px";
+		X.style.position = "initial";
+		
+	}
+	for (var i = 4 ; i <= 6 ; i++)
+	{
+		var X = document.getElementById("note"+i);
+		X.style.height = "120px";
+		X.style.width = "260px";
+		X.style.position = "initial";	
+			
+	}
+
+	if(no == '5'){
+
+		var X = document.getElementById("note6");
+		X.style.height = "120px";
+		X.style.width = "260px";
+		X.style.left= "5px";
+		X.style.top= "300px"; 
+		X.style.position ="absolute";
+	}	
+
+	if(no == '3'){
+
+		var X = document.getElementById("note4");
+		X.style.height = "120px";
+		X.style.width = "260px";
+		X.style.left= "5px";
+		X.style.top= "360px"
+		X.style.position ="absolute";
+				
+	}	
+	if(no == '33'){
+
+		var X = document.getElementById("note6");
+		X.style.height = "120px";
+		X.style.width = "260px";
+		X.style.right= "10px";
+		X.style.top= "270px"
+		X.style.position ="absolute";
+				
+	}	
+
+
+self.style.width = "350px";
+self.style.height = "350px";
+self.style.top = (window.innerHeight/4).toString()+"px";
+self.style.left = (window.innerWidth/3).toString()+"px";
+self.style.position= "absolute";
+
+
+}
+
+// saves : ajax calls the save function to save the data when save button is clickd
+function save(){
+
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	{
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			//      document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+		}
+	}
+	xmlhttp.open("GET","save?user=shikha&text="+document.getElementById("note"+no).value+'&no='+no,true);
+	xmlhttp.send();
+}
+
+// display: ajax call to display in that particular 
+function display(number){
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	{
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+
+			document.getElementById("note"+number).value=xmlhttp.responseText.slice(1,-2);
+		}
+	}
+//	alert(document.getElementById("note"+no).value)
+	xmlhttp.open("GET","display?user=shikha&no="+number,true);
+	xmlhttp.send();
+
+}
+
+
+// delt: deletes taht particular note k contents! 
+function delt(){
+	
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	{
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+	    		document.getElementById("note"+no).value='';
+		}
+	}
+	xmlhttp.open("GET","delt?user=shikha&no="+no,true);
+	xmlhttp.send();
+}
+// deletall: deleles contents of all the notes of that user
+function deleteall(){
+
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	{
+		xmlhttp=new XMLHttpRequest();
+	}else
+	{
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			display();
+		}
+	}
+	xmlhttp.open("GET","delt?user=shikha",true);
+	xmlhttp.send();
+}
+
+</script>
+
+<textarea id='note1' onclick="enlarge(this)" ></textarea>
+<br/>
+<textarea id='note2'  onclick="enlarge(this)" ></textarea>
+<br/>
+<textarea id='note3' onclick="enlarge(this)"  ></textarea>
+<br/>
+<textarea id='note4'  onclick="enlarge(this)" ></textarea>
+<br/>
+<textarea id='note5'  onclick="enlarge(this)" ></textarea>
+<br/>
+<textarea id='note6'  onclick="enlarge(this)" ></textarea>
+<br/>
+<div id='edit'>
+<button id='save' onclick="save()">Save</button>
+<button id='deletea' onclick="delt()">Delete</button>
+</div>
+<body>
+
+   <!-- Fixes Navigation Bar with drop down menu
+    ======================================================-->
+    
+    <div class="navbar navbar-default navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="buttton" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand">CyberPanda</a>
+            </div>
+            
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="yahan link dalega">Sticky notes</a></li>
+                    <li><a href="yahan bhii link">Project timeline</a></li>
+                    <li><a href="feature.html">Schedular</a></li>
+                    <li><a href="yahan bhi link dalega">Google drive</a></li>
+                    <li><a href="yahan bhi link dalega">E-mail</a></li>
+                   
+                    
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+    </body>

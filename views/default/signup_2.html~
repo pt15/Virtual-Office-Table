@@ -1,0 +1,7 @@
+{{extend 'layout.html'}}
+
+<html>
+<body>
+<a href="signup.html">Sign up again!</a>
+</body>
+</html>
